@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Rainfall - RainRadar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🌧️ RainRadar</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/predict" class="active">Predict</a></li>
+                <li><a href="/history">History</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="prediction-section">
+                <h2 class="page-title">Rainfall Prediction</h2>
+                <p class="page-subtitle">Enter weather parameters to predict rainfall</p>
+
+                <form id="predictionForm" class="prediction-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="temperature">Temperature (°C)</label>
+                            <input type="number" id="temperature" name="temperature" 
+                                   step="0.1" min="-50" max="50" required
+                                   placeholder="e.g., 25.5">
+                            <small>Range: -50°C to 50°C</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="humidity">Humidity (%)</label>
+                            <input type="number" id="humidity" name="humidity" 
+                                   step="0.1" min="0" max="100" required
+                                   placeholder="e.g., 75.0">
+                            <small>Range: 0% to 100%</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wind_speed">Wind Speed (km/h)</label>
+                            <input type="number" id="wind_speed" name="wind_speed" 
+                                   step="0.1" min="0" max="200" required
+                                   placeholder="e.g., 15.0">
+                            <small>Range: 0 to 200 km/h</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pressure">Pressure (hPa)</label>
+                            <input type="number" id="pressure" name="pressure" 
+                                   step="0.1" min="800" max="1200" required
+                                   placeholder="e.g., 1013.25">
+                            <small>Range: 800 to 1200 hPa</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="past_rainfall">Past Rainfall (mm)</label>
+                            <input type="number" id="past_rainfall" name="past_rainfall" 
+                                   step="0.1" min="0" max="500" required
+                                   placeholder="e.g., 5.0">
+                            <small>Range: 0 to 500 mm</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="predictBtn">
+                            <span id="btnText">Predict Rainfall</span>
+                            <span id="btnLoader" class="loader" style="display: none;"></span>
+                        </button>
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                    </div>
+                </form>
+
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                <div id="resultsSection" class="results-section" style="display: none;">
+                    <h3>Prediction Results</h3>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-label">Predicted Rainfall</div>
+                            <div class="result-value" id="predictedRainfall">-</div>
+                            <div class="result-unit">mm</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Confidence</div>
+                            <div class="result-value" id="confidence">-</div>
+                            <div class="result-unit">%</div>
+                        </div>
+                    </div>
+
+                    <div class="insights-section">
+                        <h4>Insights & Recommendations</h4>
+                        <ul id="insightsList" class="insights-list"></ul>
+                    </div>
+
+                    <div class="result-actions">
+                        <a href="/history" class="btn btn-secondary">View History</a>
+                        <button onclick="window.location.reload()" class="btn btn-primary">New Prediction</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 RainRadar. AI/ML Rainfall Prediction System.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
